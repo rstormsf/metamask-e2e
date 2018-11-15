@@ -1,0 +1,34 @@
+version: 2
+
+jobs:
+  test:
+    docker:
+      - image: circleci/node:8.11.2-stretch
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          name: install-yarn  # we need to update it to get workspace support
+          command: sudo npm install --global yarn@1.9.4
+
+      # turns out that it's the same as lerna bootstrap when using workspaces
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run: yarn test
+
+workflows:
+  version: 2
+
+  mainflow:
+    jobs:
+      - test
