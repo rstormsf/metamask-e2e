@@ -2,10 +2,19 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "test": "wsrun --stages --fast-exit test"
+    "build": "wsrun --stages --exclude-missing build",
+    "format": "prettier --list-different '**/*.{ts,json,md,gql}'",
+    "format:fix": "prettier --write '**/*.{ts,json,md,gql}'",
+    "test": "yarn format && wsrun --stages --fast-exit test",
+    "test:fix": "yarn format:fix && wsrun --stages --fast-exit test:fix",
+    "tsc": "tsc --noEmit"
   },
   "devDependencies": {
     "lerna": "^3.4.3",
+    "prettier": "^1.15.2",
+    "tsconfig-paths": "^3.7.0",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.6",
     "wsrun": "^3.4.0"
   },
   "workspaces": [

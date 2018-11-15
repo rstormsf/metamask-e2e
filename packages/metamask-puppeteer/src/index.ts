@@ -9,13 +9,12 @@ export function launchPuppeteerWithMetamask(
   metamaskPath: string = getBundledMetamaskInfo().absPath,
 ): Promise<Puppeteer.Browser> {
   const finalArgs = {
-    args: [
-      `--disable-extensions-except=${metamaskPath}`,
-      `--load-extension=${metamaskPath}`,
-      ...(extraArgs.args || []),
-    ],
     ...extraArgs,
+    args: [...getChromeCliArgs(metamaskPath), ...(extraArgs.args || [])],
   };
+
+  // tslint:disable-next-line
+  console.log(JSON.stringify(finalArgs));
 
   return puppeteer.launch(finalArgs);
 }
@@ -40,10 +39,14 @@ export interface MetamaskBundleInfo {
   walletPass: string;
 }
 
+export function getChromeCliArgs(metamaskPath: string = getBundledMetamaskInfo().absPath): string[] {
+  return [`--disable-extensions-except=${metamaskPath}`, `--load-extension=${metamaskPath}`];
+}
+
 export function getBundledMetamaskInfo(): MetamaskBundleInfo {
   return {
     absPath: join(__dirname, "../metamask-bundle"),
-    extensionId: "ffpmbihhbnmhllhbimmbknifbbbcmgni",
+    extensionId: "aomjjhallfgjeglblehebfpbcfeobpgk",
     walletSeed: "jungle elevator february polar wash tower sword come mosquito goose awesome length",
     walletPass: "test1234",
   };

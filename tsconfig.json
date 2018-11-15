@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "strict": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true,
+    "plugins": [
+      {
+        "name": "tslint-language-service",
+        "configFile": "./node_modules/typestrict/tslint.js",
+        "alwaysShowRuleFailuresAsWarnings": true
+      }
+    ],
+    "lib": ["es2015", "esnext.asynciterable", "dom"],
+    // These settings are required for TypeScript project references
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "baseUrl": "./packages",
+    "paths": {
+      "metamask-puppeteer": ["./metamask-puppeteer/src/*"]
+    }
+  },
+  "include": [],
+  "references": [
+    { "path": "./packages/metamask-puppeteer" },
+    { "path": "./packages/metamask-puppeteer-example" },
+    { "path": "./packages/metamask-cypress" }
+  ]
+}
