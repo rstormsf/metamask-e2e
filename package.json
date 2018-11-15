@@ -1,8 +1,12 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "test": "wsrun --stages --fast-exit test"
+  },
   "devDependencies": {
-    "lerna": "^3.4.3"
+    "lerna": "^3.4.3",
+    "wsrun": "^3.4.0"
   },
   "workspaces": [
     "packages/*"
