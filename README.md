@@ -4,13 +4,15 @@ Set of packages allowing you to control [Metamask](https://github.com/MetaMask/m
 
 ### Packages
 
-| Package                                              | Version | Description                         |
-| ---------------------------------------------------- | ------- | ----------------------------------- |
-| [`metamask-puppeteer`](/packages/metamask-puppeteer) | -       | Control metamask using _puppeteer_. |
+| Package                                              | Version | Description                                                                    |
+| ---------------------------------------------------- | ------- | ------------------------------------------------------------------------------ |
+| [`metamask-puppeteer`](/packages/metamask-puppeteer) | -       | Control metamask using [puppeteer](https://github.com/GoogleChrome/puppeteer). |
+| [`metamask-cypress`](/packages/metamask-cypress)     | -       | Control metamask using [cypress](https://www.cypress.io/).                     |
 
 ### Examples
 
 - [`metamask-puppeteer`](/packages/metamask-puppeteer-example)
+- [`metamask-cypress`](/packages/metamask-cypress-example)
 
 ## Headless Chrome note
 
