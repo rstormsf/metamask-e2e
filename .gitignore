@@ -1,3 +1,5 @@
 node_modules
 metamask-bundle
 dist
+packages/metamask-cypress-example/cypress/screenshots
+packages/metamask-cypress-example/cypress/videos

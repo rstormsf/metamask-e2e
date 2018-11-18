@@ -5,7 +5,7 @@ context("Oasis direct dummy", () => {
     cy.visit("https://oasis.direct");
   });
 
-  it("cy.title() - get the title", () => {
+  it("should accept metamask prompt", () => {
     cy.task("setupPuppeteer");
 
     cy.get("button").click();
