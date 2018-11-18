@@ -1,0 +1,13 @@
+{
+  "name": "metamask-cypress-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo done",
+    "test:fix": "echo done"
+  },
+  "dependencies": {
+    "cypress": "^3.1.1"
+  }
+}
