@@ -9,33 +9,24 @@ jobs:
     steps:
       - checkout
 
-      # - restore_cache:
-      #     keys:
-      #       - v1-dependencies-{{ checksum "package.json" }}
-
+      # we need to use nvm to update node and newest yarn (workspace support)
       - run: ./.circleci/install-yarn.sh
-
-      # - run:
-      #     name: install-yarn  # we need to update it to get workspace support
-      #     command: npm install --global yarn@1.9.4
-
+      # needed to download and unpack metamask bundle
       - run: sudo apt-get install -y bsdtar
 
-      # turns out that it's the same as lerna bootstrap when using workspaces
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+
+      # turns out that it's the same as lerna bootstrap when using workspaces so we dont need to install lerna
       - run: source /opt/circleci/.nvm/nvm.sh && yarn install
 
-      # - save_cache:
-      #     paths:
-      #       - node_modules
-      #     key: v1-dependencies-{{ checksum "package.json" }}
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: source /opt/circleci/.nvm/nvm.sh && cd ./packages/metamask-puppeteer && yarn prepare-metamask
       - run: source /opt/circleci/.nvm/nvm.sh && yarn build
-
-      # - run: 
-      #     name: run x server
-      #     command: sudo Xvfb :99 -screen 0 1024x768x16
-      #     background: true
 
       - run: source /opt/circleci/.nvm/nvm.sh && yarn test
 
