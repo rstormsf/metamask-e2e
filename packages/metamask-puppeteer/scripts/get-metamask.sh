@@ -9,3 +9,5 @@ OUT_DIR="../metamask-bundle"
 
 mkdir -p $OUT_DIR
 wget -qO- $METAMASK_URL | bsdtar -xvf- -C $OUT_DIR
+
+# @TODO:  we should verify download file's SHA here

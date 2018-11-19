@@ -10,7 +10,9 @@ jobs:
       - checkout
 
       # we need to use nvm to update node and newest yarn (workspace support)
-      - run: ./.circleci/install-yarn.sh
+      - run: .circleci/install-yarn.sh
+      # we need to update chrome to 70.x
+      - run: .circleci/update-chrome.sh
       # needed to download and unpack metamask bundle
       - run: sudo apt-get install -y bsdtar
 
