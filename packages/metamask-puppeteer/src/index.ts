@@ -13,9 +13,6 @@ export function launchPuppeteerWithMetamask(
     args: [...getChromeCliArgs(metamaskPath), ...(extraArgs.args || [])],
   };
 
-  // tslint:disable-next-line
-  console.log(JSON.stringify(finalArgs));
-
   return puppeteer.launch(finalArgs);
 }
 
