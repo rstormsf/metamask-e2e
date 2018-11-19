@@ -15,6 +15,7 @@
     "tsconfig-paths": "^3.7.0",
     "tslint": "^5.11.0",
     "typescript": "^3.1.6",
+    "typestrict": "^1.0.1",
     "wsrun": "^3.4.0"
   },
   "workspaces": [
