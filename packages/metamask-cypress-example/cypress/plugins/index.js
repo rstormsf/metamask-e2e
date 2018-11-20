@@ -1,5 +1,5 @@
-const { metamaskCypress } = require("metamask-cypress");
+const { metamaskCypressPlugin } = require("metamask-cypress");
 
 module.exports = (on, config) => {
-  metamaskCypress(on, config);
+  metamaskCypressPlugin(on, config);
 };

@@ -1,4 +1,5 @@
 /// <reference types="Cypress" />
+const { metamaskController } = require("metamask-cypress/dist/client");
 
 context("Oasis direct dummy", () => {
   beforeEach(() => {
@@ -6,10 +7,10 @@ context("Oasis direct dummy", () => {
   });
 
   it("should accept metamask prompt", () => {
-    cy.task("setupPuppeteer");
+    metamaskController.setupPuppeteer();
 
     cy.get("button").click();
 
-    cy.task("metamaskAccept");
+    metamaskController.allowToConnect();
   });
 });

@@ -21,10 +21,7 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "baseUrl": "./packages",
-    "paths": {
-      "metamask-puppeteer": ["./metamask-puppeteer/src/*"]
-    }
+    "baseUrl": "./packages"
   },
   "include": [],
   "references": [
