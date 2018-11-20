@@ -1,6 +1,8 @@
 /// <reference types="Cypress" />
 
-export const metamaskController = {
+import { MetamaskCypressTasksHandler } from ".";
+
+export const metamaskController: MetamaskCypressTasksHandler = {
   setupPuppeteer(): void {
     cy.task("setupPuppeteer");
   },

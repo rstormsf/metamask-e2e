@@ -1,10 +1,11 @@
 import { setupMetamask, getBundledMetamaskInfo } from "metamask-puppeteer";
 import * as Puppeteer from "puppeteer";
 import { PuppeteerMetamask } from "metamask-puppeteer";
+import { MetamaskCypressTasksHandler } from ".";
+const fetch = require("node-fetch");
 
 // cypress provides very low quality types for this case
 export function metamaskCypressPlugin(on: any): void {
-  const fetch = require("node-fetch");
   /**
    * Add chrome args to:
    *  - be able to connect with puppeteer
@@ -40,7 +41,7 @@ export function metamaskCypressPlugin(on: any): void {
       return true;
     },
 
-    metamaskAllowToConnect: async () => {
+    allowToConnect: async () => {
       // tslint:disable-next-line
       console.assert(puppeteerSetup);
 
@@ -48,5 +49,5 @@ export function metamaskCypressPlugin(on: any): void {
 
       return true;
     },
-  });
+  } as MetamaskCypressTasksHandler);
 }
