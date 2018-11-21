@@ -2,15 +2,25 @@
 const { metamaskController } = require("metamask-cypress/dist/client");
 
 context("Oasis direct dummy", () => {
+  let needsSetup;
   beforeEach(() => {
     cy.visit("https://oasis.direct");
+
+    metamaskController.needsSetup().then(ns => {
+      needsSetup = ns;
+      if (needsSetup) {
+        metamaskController.setupPuppeteer();
+      }
+    });
   });
 
   it("should accept metamask prompt", () => {
-    metamaskController.setupPuppeteer();
-
     cy.get("button").click();
 
-    metamaskController.allowToConnect();
+    if (needsSetup) {
+      metamaskController.allowToConnect();
+    }
+
+    cy.get(":nth-child(1) > .token > .token-name").contains("0 ETH");
   });
 });

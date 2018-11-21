@@ -23,6 +23,7 @@ export async function setupMetamask(
   metamaskBundleInfo = getBundledMetamaskInfo(),
 ): Promise<PuppeteerMetamask> {
   const puppeteerMetamask = new PuppeteerMetamask(browser, metamaskBundleInfo);
+
   await puppeteerMetamask.init();
 
   return puppeteerMetamask;

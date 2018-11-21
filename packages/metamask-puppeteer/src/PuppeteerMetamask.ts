@@ -8,6 +8,8 @@ import {
   importAccountPageElements,
   findNotificationPage,
   notificationPageElements,
+  popupPage,
+  popupPageElements,
 } from "./pages/pages";
 import { click, waitForText, type, delay } from "./pages/utils";
 import { passWelcomeScreenAction, initialSetupAction } from "./pages/actions";
@@ -20,6 +22,22 @@ export class PuppeteerMetamask {
   public async init(): Promise<void> {
     await passWelcomeScreenAction(this.browser, this.metamaskBundleInfo);
     await initialSetupAction(this.browser, this.metamaskBundleInfo);
+  }
+
+  /**
+   * Useful in some environments (ie. cypress dev mode) that cache browser extension data between the runs.
+   */
+  public async isSetupNeeded(): Promise<boolean> {
+    const page = await popupPage(this.browser, this.metamaskBundleInfo);
+    try {
+      await page.waitFor(popupPageElements.announcement.visible, { timeout: 1000 });
+
+      await page.close();
+      return true;
+    } catch {
+      await page.close();
+      return false;
+    }
   }
 
   public async loadPrivateKey(privateKey: string): Promise<void> {

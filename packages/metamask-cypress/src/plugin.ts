@@ -13,6 +13,8 @@ export function metamaskCypressPlugin(on: any): void {
    */
   on("before:browser:launch", (browser: any = {}, args: any) => {
     if (browser.name === "chrome") {
+      clearChromeCache();
+
       const bundledMetamaskInfo = getBundledMetamaskInfo();
       args.push(`--load-extension=${bundledMetamaskInfo.absPath}`);
       args.push("--remote-debugging-port=9222");
@@ -26,6 +28,10 @@ export function metamaskCypressPlugin(on: any): void {
   let metamaskController: PuppeteerMetamask;
 
   on("task", {
+    needsSetup: async () => {
+      return !puppeteerSetup;
+    },
+
     setupPuppeteer: async () => {
       const res = await fetch("http://localhost:9222/json/version");
       const config = await res.json();

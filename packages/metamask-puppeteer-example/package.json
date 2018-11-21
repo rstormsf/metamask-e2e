@@ -11,7 +11,7 @@
     "lint": "yarn tslint && yarn tsc",
     "lint:fix": "yarn tslint:fix && yarn tsc",
     "test": "yarn lint && yarn start",
-    "test:fix": "yarn lint:fix && yarn start"
+    "test:fix": "yarn lint:fix && NODE_ENV=dev yarn start"
   },
   "devDependencies": {
     "@types/node": "^10.12.0",
