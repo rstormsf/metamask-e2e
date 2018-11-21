@@ -1,5 +1,6 @@
 /// <reference types="Cypress" />
 
+import { MetamaskNetwork } from "metamask-puppeteer";
 import { MetamaskCypressTasksHandler } from ".";
 
 export const metamaskController: MetamaskCypressTasksHandler = {
@@ -17,5 +18,17 @@ export const metamaskController: MetamaskCypressTasksHandler = {
 
   allowToConnect(): void {
     cy.task("allowToConnect");
+  },
+
+  loadPrivateKey(key: string): void {
+    cy.task("loadPrivateKey", key);
+  },
+
+  changeNetwork(network: MetamaskNetwork): void {
+    cy.task("changeNetwork", network);
+  },
+
+  acceptTx(): void {
+    cy.task("acceptTx");
   },
 };

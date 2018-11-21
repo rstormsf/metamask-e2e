@@ -66,4 +66,6 @@ export async function findNotificationPage(
 export const notificationPageElements = {
   acceptButton:
     "div.page-container__footer > header > button.button.btn-confirm.btn--large.page-container__footer-button",
+  rejectButton:
+    "div.page-container__footer > header > button.button.btn-default.btn--large.page-container__footer-button",
 };

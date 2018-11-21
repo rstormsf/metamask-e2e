@@ -1,6 +1,6 @@
 import { getBundledMetamaskInfo } from "metamask-puppeteer";
 import * as Puppeteer from "puppeteer";
-import { PuppeteerMetamask } from "metamask-puppeteer";
+import { PuppeteerMetamask, MetamaskNetwork } from "metamask-puppeteer";
 import { MetamaskCypressTasksHandler } from ".";
 const fetch = require("node-fetch");
 
@@ -65,6 +65,27 @@ export function metamaskCypressPlugin(on: any): void {
       initCheck();
 
       await metamaskController.allowToConnect();
+
+      return true;
+    },
+    loadPrivateKey: async (key: string) => {
+      initCheck();
+
+      await metamaskController.loadPrivateKey(key);
+
+      return true;
+    },
+    changeNetwork: async (network: MetamaskNetwork) => {
+      initCheck();
+
+      await metamaskController.changeNetwork(network);
+
+      return true;
+    },
+    acceptTx: async () => {
+      initCheck();
+
+      await metamaskController.acceptTx();
 
       return true;
     },

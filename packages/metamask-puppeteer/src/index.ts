@@ -3,7 +3,7 @@ import { join } from "path";
 import { LaunchOptions } from "puppeteer";
 import { PuppeteerMetamask } from "./PuppeteerMetamask";
 
-export { PuppeteerMetamask } from "./PuppeteerMetamask";
+export { PuppeteerMetamask, MetamaskNetwork } from "./PuppeteerMetamask";
 
 export function launchPuppeteerWithMetamask(
   puppeteer: typeof Puppeteer,

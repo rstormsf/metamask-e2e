@@ -14,7 +14,7 @@ import {
 import { click, waitForText, type, delay } from "./pages/utils";
 import { passWelcomeScreenAction, initialSetupAction } from "./pages/actions";
 
-type Network = "main" | "ropsten" | "kovan" | "rinkeby" | "localhost";
+export type MetamaskNetwork = "main" | "ropsten" | "kovan" | "rinkeby" | "localhost";
 
 export class PuppeteerMetamask {
   constructor(public browser: Puppeteer.Browser, public metamaskBundleInfo: MetamaskBundleInfo) {}
@@ -52,8 +52,8 @@ export class PuppeteerMetamask {
     await page.close();
   }
 
-  public async changeNetwork(network: Network): Promise<void> {
-    const networkToPos: Dictionary<number, Network> = {
+  public async changeNetwork(network: MetamaskNetwork): Promise<void> {
+    const networkToPos: Dictionary<number, MetamaskNetwork> = {
       main: 0,
       ropsten: 1,
       kovan: 2,
@@ -61,7 +61,7 @@ export class PuppeteerMetamask {
       localhost: 4,
     };
 
-    const networkToNetworkName = (network: Network): string => startCase(network);
+    const networkToNetworkName = (network: MetamaskNetwork): string => startCase(network);
 
     const page = await homePage(this.browser, this.metamaskBundleInfo);
 
@@ -78,6 +78,15 @@ export class PuppeteerMetamask {
   }
 
   public async allowToConnect(): Promise<void> {
+    // i think there are some timing issues inside metamask and that's why delay is needed
+    await delay(1000);
+    const notificationPage = await findNotificationPage(this.browser, this.metamaskBundleInfo);
+    await notificationPage.bringToFront();
+
+    await click(notificationPage, notificationPageElements.acceptButton);
+  }
+
+  public async acceptTx(): Promise<void> {
     // i think there are some timing issues inside metamask and that's why delay is needed
     await delay(1000);
     const notificationPage = await findNotificationPage(this.browser, this.metamaskBundleInfo);
