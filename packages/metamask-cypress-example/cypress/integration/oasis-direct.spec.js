@@ -6,7 +6,9 @@ context("Oasis direct dummy", () => {
   beforeEach(() => {
     cy.visit("https://oasis.direct");
 
-    metamaskController.needsSetup().then(ns => {
+    metamaskController.init();
+
+    metamaskController.isSetupNeeded().then(ns => {
       needsSetup = ns;
       if (needsSetup) {
         metamaskController.setupPuppeteer();

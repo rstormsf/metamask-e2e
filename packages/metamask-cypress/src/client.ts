@@ -3,8 +3,12 @@
 import { MetamaskCypressTasksHandler } from ".";
 
 export const metamaskController: MetamaskCypressTasksHandler = {
-  needsSetup(): Cypress.Chainable<boolean> {
-    return cy.task("needsSetup") as any;
+  init(): void {
+    cy.task("init");
+  },
+
+  isSetupNeeded(): Cypress.Chainable<boolean> {
+    return cy.task("isSetupNeeded") as any;
   },
 
   setupPuppeteer(): void {

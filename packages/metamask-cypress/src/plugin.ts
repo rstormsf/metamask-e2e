@@ -1,4 +1,4 @@
-import { setupMetamask, getBundledMetamaskInfo } from "metamask-puppeteer";
+import { getBundledMetamaskInfo } from "metamask-puppeteer";
 import * as Puppeteer from "puppeteer";
 import { PuppeteerMetamask } from "metamask-puppeteer";
 import { MetamaskCypressTasksHandler } from ".";
@@ -22,32 +22,47 @@ export function metamaskCypressPlugin(on: any): void {
     }
   });
 
-  let puppeteerSetup = false;
+  let puppeteerInitialized = false;
+  let puppeteerBrowser: Puppeteer.Browser;
   let metamaskController: PuppeteerMetamask;
 
-  on("task", {
-    needsSetup: async () => {
-      return !puppeteerSetup;
-    },
+  function initCheck(): void {
+    // tslint:disable-next-line
+    console.assert(puppeteerInitialized, "Puppeteer not initialized. Run init() first.");
+  }
 
-    setupPuppeteer: async () => {
+  on("task", {
+    init: async () => {
       const res = await fetch("http://localhost:9222/json/version");
       const config = await res.json();
       const webSocketDebuggerUrl = config.webSocketDebuggerUrl;
 
-      const browser = await Puppeteer.connect({
+      puppeteerBrowser = await Puppeteer.connect({
         browserWSEndpoint: webSocketDebuggerUrl,
       });
 
-      puppeteerSetup = true;
-      metamaskController = await setupMetamask(browser);
+      puppeteerInitialized = true;
+      metamaskController = new PuppeteerMetamask(puppeteerBrowser, getBundledMetamaskInfo());
+
+      return true;
+    },
+
+    isSetupNeeded: async () => {
+      initCheck();
+
+      return !puppeteerInitialized || (await metamaskController.isSetupNeeded());
+    },
+
+    setupPuppeteer: async () => {
+      initCheck();
+
+      await metamaskController.init();
 
       return true;
     },
 
     allowToConnect: async () => {
-      // tslint:disable-next-line
-      console.assert(puppeteerSetup);
+      initCheck();
 
       await metamaskController.allowToConnect();
 

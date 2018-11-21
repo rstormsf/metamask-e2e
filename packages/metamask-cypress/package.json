@@ -4,12 +4,10 @@
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
     "tslint": "tslint -p ./tsconfig.json -e 'node_modules/**/*' -e '**/node_modules/**/*' '**/*.ts'",
     "tslint:fix": "tslint --fix --format stylish -p ./tsconfig.json -e 'node_modules/**/*' -e '**/node_modules/**/*' '**/*.ts'",
-    "tsc": "tsc --noEmit",
-    "lint": "yarn tslint && yarn tsc",
-    "lint:fix": "yarn tslint:fix && yarn tsc",
+    "lint": "yarn tslint",
+    "lint:fix": "yarn tslint:fix",
     "test": "yarn lint",
     "test:fix": "yarn lint:fix"
   },

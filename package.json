@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "build": "tsc -b",
+    "build": "tsc -b && wsrun --exclude-missing prepare-metamask",
     "build:watch": "tsc -b -w",
     "format": "prettier --list-different '**/*.{ts,json,md,gql}'",
     "format:fix": "prettier --write '**/*.{ts,json,md,gql}'",
