@@ -3,6 +3,8 @@ import { join } from "path";
 import { LaunchOptions } from "puppeteer";
 import { PuppeteerMetamask } from "./PuppeteerMetamask";
 
+export { PuppeteerMetamask, MetamaskNetwork } from "./PuppeteerMetamask";
+
 export function launchPuppeteerWithMetamask(
   puppeteer: typeof Puppeteer,
   extraArgs: LaunchOptions = {},
@@ -21,6 +23,7 @@ export async function setupMetamask(
   metamaskBundleInfo = getBundledMetamaskInfo(),
 ): Promise<PuppeteerMetamask> {
   const puppeteerMetamask = new PuppeteerMetamask(browser, metamaskBundleInfo);
+
   await puppeteerMetamask.init();
 
   return puppeteerMetamask;

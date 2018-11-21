@@ -1,6 +1,8 @@
 import * as Puppeteer from "puppeteer";
 import { launchPuppeteerWithMetamask, setupMetamask } from "metamask-puppeteer";
 
+const IS_DEV = process.env.NODE_ENV === "dev";
+
 async function main(): Promise<void> {
   // tslint:disable-next-line
   console.log("Starting browser...");
@@ -29,13 +31,22 @@ async function main(): Promise<void> {
   await oasisPage.bringToFront();
 
   // tslint:disable-next-line
+  console.assert(!(await metamaskController.isSetupNeeded()));
+
+  // tslint:disable-next-line
   console.log("Done!");
-  await oasisPage.close();
-  await browser.close();
+  // don't close window to early in dev mode
+  if (!IS_DEV) {
+    await oasisPage.close();
+    await browser.close();
+  }
 }
 
 main().catch(e => {
   // tslint:disable-next-line
   console.error(e);
-  process.exit(1);
+  // don't close window to early in dev mode
+  if (!IS_DEV) {
+    process.exit(1);
+  }
 });

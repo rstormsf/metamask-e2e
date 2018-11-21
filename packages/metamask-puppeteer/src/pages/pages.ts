@@ -2,6 +2,19 @@ import * as Puppeteer from "puppeteer";
 import { MetamaskBundleInfo } from "..";
 import { waitFor } from "./utils";
 
+export async function popupPage(browser: Puppeteer.Browser, bundleInfo: MetamaskBundleInfo): Promise<Puppeteer.Page> {
+  const page = await browser.newPage();
+  await page.goto(`chrome-extension://${bundleInfo.extensionId}/popup.html`);
+
+  return page;
+}
+
+export const popupPageElements = {
+  announcement: {
+    visible: ".new-ui-announcement",
+  },
+};
+
 export async function homePage(browser: Puppeteer.Browser, bundleInfo: MetamaskBundleInfo): Promise<Puppeteer.Page> {
   const page = await browser.newPage();
   await page.goto(`chrome-extension://${bundleInfo.extensionId}/home.html`);
@@ -53,4 +66,6 @@ export async function findNotificationPage(
 export const notificationPageElements = {
   acceptButton:
     "div.page-container__footer > header > button.button.btn-confirm.btn--large.page-container__footer-button",
+  rejectButton:
+    "div.page-container__footer > header > button.button.btn-default.btn--large.page-container__footer-button",
 };

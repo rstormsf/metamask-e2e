@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "test:dev": "cypress open",
     "test": "cypress run --browser chrome --headed",
     "test:fix": "cypress run --browser chrome --headed"
   },
