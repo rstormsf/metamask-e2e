@@ -1,0 +1,8 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./metamask-puppeteer" },
+    { "path": "./metamask-puppeteer-example" },
+    { "path": "./metamask-cypress" }
+  ]
+}

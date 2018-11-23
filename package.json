@@ -2,13 +2,12 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "build": "tsc -b && wsrun --exclude-missing prepare-metamask",
-    "build:watch": "tsc -b -w",
+    "build": "tsc -b packages && wsrun --exclude-missing prepare-metamask",
+    "build:watch": "tsc -b -w packages",
     "format": "prettier --list-different '**/*.{ts,json,md,gql}'",
     "format:fix": "prettier --write '**/*.{ts,json,md,gql}'",
-    "test": "yarn format && wsrun --package $PKG --stages --fast-exit test && yarn tsc",
-    "test:fix": "yarn format:fix && wsrun --package $PKG --stages --fast-exit test:fix && yarn tsc",
-    "tsc": "tsc --noEmit"
+    "test": "yarn format && wsrun --package $PKG --stages --fast-exit test",
+    "test:fix": "yarn format:fix && wsrun --package $PKG --stages --fast-exit test:fix"
   },
   "devDependencies": {
     "lerna": "^3.4.3",
