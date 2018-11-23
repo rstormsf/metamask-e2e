@@ -20,13 +20,6 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true,
-    "baseUrl": "./packages"
-  },
-  "include": [],
-  "references": [
-    { "path": "./packages/metamask-puppeteer" },
-    { "path": "./packages/metamask-puppeteer-example" },
-    { "path": "./packages/metamask-cypress" }
-  ]
+    "sourceMap": true
+  }
 }
