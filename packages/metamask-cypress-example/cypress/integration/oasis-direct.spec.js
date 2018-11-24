@@ -8,20 +8,13 @@ describe("Oasis direct dummy", () => {
 
     metamaskController.init();
 
-    metamaskController.isSetupNeeded().then(ns => {
-      needsSetup = ns;
-      if (needsSetup) {
-        metamaskController.setupPuppeteer();
-      }
-    });
+    metamaskController.setupPuppeteer();
   });
 
   it("should accept metamask prompt", () => {
     cy.get("button").click();
 
-    if (needsSetup) {
-      metamaskController.allowToConnect();
-    }
+    metamaskController.allowToConnect();
 
     cy.get(":nth-child(1) > .token > .token-name").contains("0 ETH");
   });

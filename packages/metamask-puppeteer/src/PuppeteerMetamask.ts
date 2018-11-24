@@ -8,13 +8,12 @@ import {
   importAccountPageElements,
   findNotificationPage,
   notificationPageElements,
-  popupPage,
-  popupPageElements,
 } from "./pages/pages";
-import { click, waitForText, type, delay } from "./pages/utils";
+import { click, waitForText, type, delay } from "puppeteer-utils";
 import { passWelcomeScreenAction, initialSetupAction } from "./pages/actions";
 
 export type MetamaskNetwork = "main" | "ropsten" | "kovan" | "rinkeby" | "localhost";
+export type MetamaskStatus = "unlocked" | "locked" | "uninitialized";
 
 export class PuppeteerMetamask {
   constructor(public browser: Puppeteer.Browser, public metamaskBundleInfo: MetamaskBundleInfo) {}
@@ -27,17 +26,36 @@ export class PuppeteerMetamask {
   /**
    * Useful in some environments (ie. cypress dev mode) that cache browser extension data between the runs.
    */
-  public async isSetupNeeded(): Promise<boolean> {
-    const page = await popupPage(this.browser, this.metamaskBundleInfo);
-    try {
-      await page.waitFor(popupPageElements.announcement.visible, { timeout: 1000 });
+  public async getStatus(): Promise<MetamaskStatus> {
+    const page = await homePage(this.browser, this.metamaskBundleInfo);
 
-      await page.close();
-      return true;
-    } catch {
-      await page.close();
-      return false;
+    const hasLock = await page
+      .waitFor(homePageElements.lock.visible, { timeout: 1000 })
+      .then(() => true)
+      .catch(() => false);
+
+    const hasWelcomeAnnouncement = await page
+      .waitFor(homePageElements.announcement.visible, { timeout: 1000 })
+      .then(() => true)
+      .catch(() => false);
+
+    await page.close();
+
+    if (hasLock) {
+      return "locked";
+    } else if (hasWelcomeAnnouncement) {
+      return "uninitialized";
+    } else {
+      return "unlocked";
     }
+  }
+
+  public async unlockAccount(password: string = this.metamaskBundleInfo.walletPass): Promise<void> {
+    const page = await homePage(this.browser, this.metamaskBundleInfo);
+    await type(page, homePageElements.lock.passwordInput, password);
+    await click(page, homePageElements.lock.unlockButton);
+
+    await page.close();
   }
 
   public async loadPrivateKey(privateKey: string): Promise<void> {

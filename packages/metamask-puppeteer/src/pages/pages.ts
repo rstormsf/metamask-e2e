@@ -1,6 +1,6 @@
 import * as Puppeteer from "puppeteer";
 import { MetamaskBundleInfo } from "..";
-import { waitFor } from "./utils";
+import { waitFor } from "puppeteer-utils";
 
 export async function popupPage(browser: Puppeteer.Browser, bundleInfo: MetamaskBundleInfo): Promise<Puppeteer.Page> {
   const page = await browser.newPage();
@@ -8,12 +8,6 @@ export async function popupPage(browser: Puppeteer.Browser, bundleInfo: Metamask
 
   return page;
 }
-
-export const popupPageElements = {
-  announcement: {
-    visible: ".new-ui-announcement",
-  },
-};
 
 export async function homePage(browser: Puppeteer.Browser, bundleInfo: MetamaskBundleInfo): Promise<Puppeteer.Page> {
   const page = await browser.newPage();
@@ -36,6 +30,16 @@ export const homePageElements = {
   },
   overlay: {
     text: "div.loading-overlay > div > span",
+  },
+  // home page can show announcement about "new" version on first open
+  announcement: {
+    visible: ".new-ui-announcement",
+  },
+  // ...or can be a lock screen
+  lock: {
+    visible: ".unlock-page",
+    passwordInput: "#password",
+    unlockButton: "#app-content > div > div.main-container-wrapper > div > div > button",
   },
 };
 

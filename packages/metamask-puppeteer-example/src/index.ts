@@ -31,7 +31,7 @@ async function main(): Promise<void> {
   await oasisPage.bringToFront();
 
   // tslint:disable-next-line
-  console.assert(!(await metamaskController.isSetupNeeded()));
+  console.assert((await metamaskController.getStatus()) === "unlocked");
 
   // tslint:disable-next-line
   console.log("Done!");

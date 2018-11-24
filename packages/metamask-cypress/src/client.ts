@@ -2,14 +2,19 @@
 
 import { MetamaskNetwork } from "metamask-puppeteer";
 import { MetamaskCypressTasksHandler } from ".";
+import { MetamaskStatus } from "metamask-puppeteer/dist/PuppeteerMetamask";
 
 export const metamaskController: MetamaskCypressTasksHandler = {
   init(): void {
     cy.task("init");
   },
 
-  isSetupNeeded(): Cypress.Chainable<boolean> {
-    return cy.task("isSetupNeeded") as any;
+  unlockAccount(password?: string): void {
+    cy.task("unlockAccount", password);
+  },
+
+  getStatus(): Cypress.Chainable<MetamaskStatus> {
+    return cy.task("getStatus") as any;
   },
 
   setupPuppeteer(): void {
