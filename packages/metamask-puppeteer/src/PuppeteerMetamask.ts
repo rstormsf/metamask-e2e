@@ -61,7 +61,11 @@ export class PuppeteerMetamask {
       localhost: 4,
     };
 
-    const networkToNetworkName = (network: MetamaskNetwork): string => startCase(network);
+    const networkToNetworkName = (network: MetamaskNetwork): string => {
+      if (network === "localhost") {
+        return "Private";
+      } else return startCase(network);
+    };
 
     const page = await homePage(this.browser, this.metamaskBundleInfo);
 

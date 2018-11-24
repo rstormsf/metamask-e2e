@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 const { metamaskController } = require("metamask-cypress/dist/client");
 
-context("Oasis direct dummy", () => {
+describe("Oasis direct dummy", () => {
   let needsSetup;
   beforeEach(() => {
     cy.visit("https://oasis.direct");
