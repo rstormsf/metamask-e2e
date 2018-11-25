@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "prepublishOnly": "yarn build",
     "build": "tsc -b packages && wsrun --exclude-missing prepare-metamask",
     "build:watch": "tsc -b -w packages",
     "format": "prettier --list-different '**/*.{ts,json,md,gql}'",
