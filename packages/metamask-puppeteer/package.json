@@ -14,6 +14,9 @@
     "test": "yarn lint",
     "test:fix": "yarn lint:fix"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "puppeteer": "^1.10.0"
   },
