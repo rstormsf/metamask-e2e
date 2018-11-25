@@ -1,6 +1,6 @@
 import * as Puppeteer from "puppeteer";
 import { MetamaskBundleInfo } from "..";
-import { waitFor } from "puppeteer-utils";
+import { waitFor } from "puppeteer-better-utils";
 
 export async function popupPage(browser: Puppeteer.Browser, bundleInfo: MetamaskBundleInfo): Promise<Puppeteer.Page> {
   const page = await browser.newPage();

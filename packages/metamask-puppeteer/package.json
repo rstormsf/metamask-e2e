@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.11",
-    "puppeteer-utils": "^0.0.1"
+    "puppeteer-better-utils": "^0.0.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.118",

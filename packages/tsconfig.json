@@ -1,7 +1,7 @@
 {
   "files": [],
   "references": [
-    { "path": "./puppeteer-utils" },
+    { "path": "./puppeteer-better-utils" },
     { "path": "./metamask-puppeteer" },
     { "path": "./metamask-puppeteer-example" },
     { "path": "./metamask-cypress" }

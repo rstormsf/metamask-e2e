@@ -4,7 +4,7 @@
 
 import * as Puppeteer from "puppeteer";
 import { MetamaskBundleInfo } from "..";
-import { click, type, get, waitForText } from "puppeteer-utils";
+import { click, type, get, waitForText } from "puppeteer-better-utils";
 import { homePage } from "./pages";
 
 export async function initialSetupAction(browser: Puppeteer.Browser, bundleInfo: MetamaskBundleInfo): Promise<void> {

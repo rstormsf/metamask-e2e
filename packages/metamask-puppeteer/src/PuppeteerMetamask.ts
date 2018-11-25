@@ -9,7 +9,7 @@ import {
   findNotificationPage,
   notificationPageElements,
 } from "./pages/pages";
-import { click, waitForText, type, delay } from "puppeteer-utils";
+import { click, waitForText, type, delay } from "puppeteer-better-utils";
 import { passWelcomeScreenAction, initialSetupAction } from "./pages/actions";
 
 export type MetamaskNetwork = "main" | "ropsten" | "kovan" | "rinkeby" | "localhost";
