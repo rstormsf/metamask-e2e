@@ -99,21 +99,36 @@ export class PuppeteerMetamask {
     await page.close();
   }
 
-  public async allowToConnect(): Promise<void> {
+  private async getNotificationPage(): Promise<Puppeteer.Page> {
     // i think there are some timing issues inside metamask and that's why delay is needed
     await delay(1000);
     const notificationPage = await findNotificationPage(this.browser, this.metamaskBundleInfo);
     await notificationPage.bringToFront();
+
+    return notificationPage;
+  }
+
+  public async allowToConnect(): Promise<void> {
+    const notificationPage = await this.getNotificationPage();
 
     await click(notificationPage, notificationPageElements.acceptButton);
   }
 
+  public async disallowToConnect(): Promise<void> {
+    const notificationPage = await this.getNotificationPage();
+
+    await click(notificationPage, notificationPageElements.rejectButton);
+  }
+
   public async acceptTx(): Promise<void> {
-    // i think there are some timing issues inside metamask and that's why delay is needed
-    await delay(1000);
-    const notificationPage = await findNotificationPage(this.browser, this.metamaskBundleInfo);
-    await notificationPage.bringToFront();
+    const notificationPage = await this.getNotificationPage();
 
     await click(notificationPage, notificationPageElements.acceptButton);
+  }
+
+  public async rejectTx(): Promise<void> {
+    const notificationPage = await this.getNotificationPage();
+
+    await click(notificationPage, notificationPageElements.rejectButton);
   }
 }

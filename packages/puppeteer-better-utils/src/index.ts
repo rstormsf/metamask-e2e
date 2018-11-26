@@ -1,8 +1,16 @@
 import * as Puppeteer from "puppeteer";
 export const STANDARD_DELAY = 500;
 
-export async function get(page: Puppeteer.Page, selector: string): Promise<Puppeteer.ElementHandle<any>> {
-  await page.waitForSelector(selector);
+export type Options = {
+  timeout: number;
+};
+
+export async function get(
+  page: Puppeteer.Page,
+  selector: string,
+  options?: Options,
+): Promise<Puppeteer.ElementHandle<any>> {
+  await page.waitForSelector(selector, options);
   const handle = await page.$(selector);
 
   if (!handle) {
@@ -37,9 +45,9 @@ export async function delay(timeout: number): Promise<void> {
  * This is different than page.waitFor b/c fn is executed in node context
  * @param fn — returns error string or undefined for success
  */
-export async function waitFor<T>(fn: () => Promise<T>): Promise<T> {
+export async function waitFor<T>(fn: () => Promise<T>, repeat = 5): Promise<T> {
   let lastError: any;
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < repeat; i++) {
     try {
       return await fn();
     } catch (e) {
@@ -56,20 +64,24 @@ export async function waitForText(
   page: Puppeteer.Page,
   selector: string,
   expectedText: string | RegExp,
+  options?: Options,
 ): Promise<void> {
-  return waitFor(async () => {
-    const actualText = await page.evaluate(
-      // @ts-ignore
-      selector => document.querySelector(selector) && document.querySelector(selector).textContent,
-      selector,
-    );
+  return waitFor(
+    async () => {
+      const actualText = await page.evaluate(
+        // @ts-ignore
+        selector => document.querySelector(selector) && document.querySelector(selector).textContent,
+        selector,
+      );
 
-    if (typeof expectedText === "string" && actualText === expectedText) {
-      return;
-    } else if (expectedText instanceof RegExp && expectedText.test(actualText)) {
-      return;
-    }
+      if (typeof expectedText === "string" && actualText === expectedText) {
+        return;
+      } else if (expectedText instanceof RegExp && expectedText.test(actualText)) {
+        return;
+      }
 
-    throw new Error(`Couldnt find ${selector} with ${expectedText}. Last value was: ${actualText}`);
-  });
+      throw new Error(`Couldnt find ${selector} with ${expectedText}. Last value was: ${actualText}`);
+    },
+    options ? options.timeout / STANDARD_DELAY : undefined,
+  );
 }
