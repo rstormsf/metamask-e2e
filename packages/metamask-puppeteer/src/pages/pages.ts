@@ -72,4 +72,8 @@ export const notificationPageElements = {
     "div.page-container__footer > header > button.button.btn-confirm.btn--large.page-container__footer-button",
   rejectButton:
     "div.page-container__footer > header > button.button.btn-default.btn--large.page-container__footer-button",
+  signTypedDataV3Button: 
+    "div.request-signature__footer > button.button.btn-primary.btn--large",
+  rejectTypedDataV3Button: 
+    "div.request-signature__footer > button.button.btn-default.btn--large.request-signature__footer__cancel-button"
 };

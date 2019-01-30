@@ -131,4 +131,16 @@ export class PuppeteerMetamask {
 
     await click(notificationPage, notificationPageElements.rejectButton);
   }
+  
+  public async signTypedDataV3(): Promise<void> {
+    const notificationPage = await this.getNotificationPage();
+
+    await click(notificationPage, notificationPageElements.signTypedDataV3Button);
+  }
+
+  public async rejectSignTypedDataV3(): Promise<void> {
+    const notificationPage = await this.getNotificationPage();
+
+    await click(notificationPage, notificationPageElements.rejectTypedDataV3Button);
+  }
 }
